@@ -6,6 +6,8 @@ import {
 import {
   createProtocol,
 } from 'vue-cli-plugin-electron-builder/lib'
+import { autoUpdater } from 'electron-updater'
+import log from 'electron-log'
 import App from './server/app'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -158,19 +160,38 @@ if (isDevelopment) {
 /**
  * Auto Updater
  *
- * Uncomment the following code below and install `electron-updater` to
- * support auto updating. Code Signing with a valid certificate is required.
- * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html#auto-updating
  */
 
-/*
-import { autoUpdater } from 'electron-updater'
-
-autoUpdater.on('update-downloaded', () => {
-  autoUpdater.quitAndInstall()
+function sendStatusToWindow(status: string, params: any) {
+  log.info(params)
+  win.webContents.send(status, params)
+}
+autoUpdater.autoDownload = false
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('checking-for-update', 'Checking for update...')
 })
+
+autoUpdater.on('update-available', (info: any) => {
+  log.info(info)
+  sendStatusToWindow('update-available', 'Update available')
+})
+
+autoUpdater.on('download-progress', (data: any) => {
+  sendStatusToWindow('download-progress', data)
+})
+
+autoUpdater.on('autoUpdater-toDownload', (data: any) => {
+  log.info('收到了事件', data)
+  autoUpdater.downloadUpdate()
+})
+
+// autoUpdater.on('update-downloaded', () => {
+//   autoUpdater.quitAndInstall()
+// })
 
 app.on('ready', () => {
-  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
+  // if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
+  setTimeout(() => {
+    autoUpdater.checkForUpdates()
+  }, 3000)
 })
- */

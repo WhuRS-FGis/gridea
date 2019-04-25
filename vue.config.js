@@ -43,6 +43,12 @@ module.exports = {
           createStartMenuShortcut: true, // 创建开始菜单图标
           shortcutName: 'Gridea', // 图标名称
         },
+        publish: {
+          provider: 'github',
+          repo: 'gridea',
+          owner: 'EryouHao',
+          releaseType: 'release',
+        },
       },
     },
   },
