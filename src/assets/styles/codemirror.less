@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "Inconsolata";
+  src: url(../fonts/Inconsolata-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  src: url(../fonts/Inconsolata-Bold.ttf);
+  font-weight: bold;
+}
+
+.CodeMirror-code {
+  font-family: 'Inconsolata', monospace;
+}
+
+.CodeMirror .CodeMirror-code .cm-comment {
+  background: transparent !important;
+}
+
+.markdown-editor {
+  .CodeMirror {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+
+    .CodeMirror-scroll {
+      flex: auto;
+    }
+  }
+}

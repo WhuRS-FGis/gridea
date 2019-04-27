@@ -7,15 +7,15 @@
         <a-button class="btn" type="primary" :disabled="!canSubmit" @click="savePost">{{ $t('save') }}</a-button>
       </a-row>
     </div>
-    <div class="page-content">
-      <a-row :gutter="16">
-        <a-col :span="16">
+    <div class="page-content flex-row">
+      <a-row :gutter="16" class="flex-item-fill flex-row">
+        <a-col :span="16" class="flex-col">
           <a-input class="post-title" size="large" :placeholder="$t('title')" v-model="form.title" @change="handleTitleChange"></a-input>
           <div class="tip-text">{{ $t('editorTip') }}</div>
           <markdown-editor
             id="markdown-editor"
             ref="editor"
-            class="md-editor"
+            class="md-editor flex-item-fill flex-col"
             :configs="configs"
             preview-class="markdown-body"
             v-model="form.content"
